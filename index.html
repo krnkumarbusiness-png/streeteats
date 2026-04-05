@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Street Eats - Haldwani Ka Pehla Street Food App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF6B2B;
+            --bg: #1A1A2E;
+            --cards: #0F3460;
+            --accent: #FFD700;
+            --text: #FFFFFF;
+            --muted: #A0A8C0;
+            --success: #00C48C;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navbar */
+        header {
+            padding: 15px 0;
+            background: rgba(26, 26, 46, 0.98);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid var(--primary);
+        }
+
+        .logo-text {
+            color: var(--text);
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .ig-link {
+            color: var(--muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .ig-link:hover {
+            color: var(--primary);
+        }
+
+        .badge-gold {
+            background-color: var(--accent);
+            color: #000;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 140px 0 60px;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at 50% 20%, rgba(42, 42, 74, 0.5) 0%, var(--bg) 70%);
+        }
+
+        .launch-badge {
+            background-color: rgba(255, 107, 43, 0.1);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+            border: 1px solid var(--primary);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--muted);
+            margin-bottom: 40px;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        .signup-form {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 40px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .signup-form input {
+            flex: 1;
+            padding: 16px 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--cards);
+            color: var(--text);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .signup-form input:focus {
+            border-color: var(--primary);
+        }
+
+        .signup-form button {
+            background-color: var(--primary);
+            color: var(--text);
+            border: none;
+            padding: 0 30px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .signup-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 43, 0.3);
+        }
+
+        .store-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .store-btn {
+            background: var(--cards);
+            padding: 12px 25px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--muted);
+            text-decoration: none;
+            cursor: not-allowed;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            min-width: 180px;
+        }
+
+        .store-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        .store-btn div {
+            text-align: left;
+        }
+
+        .store-btn small {
+            display: block;
+            font-size: 0.7rem;
+            line-height: 1.2;
+        }
+
+        .store-btn strong {
+            font-size: 1.05rem;
+            display: block;
+            line-height: 1.2;
+            color: var(--text);
+        }
+
+        /* Countdown Section */
+        .countdown-section {
+            padding: 60px 0;
+            background: linear-gradient(90deg, #0F3460 0%, #1A1A2E 100%);
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .countdown-title {
+            color: var(--accent);
+            margin-bottom: 30px;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .timer-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .time-box {
+            background: rgba(26, 26, 46, 0.6);
+            padding: 15px 20px;
+            border-radius: 12px;
+            min-width: 90px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .time-box span {
+            display: block;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .time-box p {
+            color: var(--muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 8px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .feature-card {
+            background: var(--cards);
+            padding: 35px 25px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 80px 0;
+            background: rgba(15, 52, 96, 0.3);
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .step-card {
+            background: var(--cards);
+            padding: 40px 25px 30px;
+            border-radius: 16px;
+            text-align: center;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .step-number {
+            width: 46px;
+            height: 46px;
+            background: var(--primary);
+            color: var(--text);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 800;
+            position: absolute;
+            top: -23px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 4px solid var(--bg);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .step-card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 10px;
+        }
+
+        .step-card p {
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--cards);
+            padding: 60px 0 30px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 25px;
+            display: inline-block;
+        }
+
+        .footer-logo span {
+            color: var(--primary);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-contact {
+            color: var(--accent);
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .footer-bottom {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--muted);
+            font-size: 0.85rem;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        /* Floating WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: #25D366;
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            transition: transform 0.3s;
+        }
+
+        .whatsapp-float:active {
+            transform: scale(0.95);
+        }
+
+        .whatsapp-float svg {
+            width: 30px;
+            height: 30px;
+            fill: white;
+        }
+
+        /* Modals - 100% Mobile Optimized */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: var(--cards);
+            width: 90%;
+            max-width: 500px;
+            max-height: 85vh;
+            padding: 30px;
+            border-radius: 16px;
+            position: relative;
+            color: var(--muted);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow-y: auto; /* Makes content scrollable if it exceeds screen height */
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            animation: modalSlideUp 0.3s ease;
+        }
+
+        @keyframes modalSlideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-content h2 {
+            color: var(--text);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-right: 30px; /* Space for close button */
+        }
+
+        .modal-content p {
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .modal-content ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .modal-content li {
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .modal-content li strong {
+            color: var(--text);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            color: var(--muted);
+            font-size: 1.8rem;
+            line-height: 1;
+            cursor: pointer;
+            transition: color 0.3s;
+            background: rgba(0,0,0,0.2);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            color: var(--primary);
+            background: rgba(0,0,0,0.4);
+        }
+
+        /* =========================================
+           MOBILE OPTIMIZATION (MEDIA QUERIES)
+           ========================================= */
+
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 2.8rem; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .steps-container { grid-template-columns: repeat(2, 1fr); gap: 40px 20px; }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.4rem; }
+            .hero p { font-size: 1rem; padding: 0 10px; }
+            .features-grid { grid-template-columns: 1fr; }
+            .steps-container { grid-template-columns: 1fr; }
+            .time-box { padding: 12px 15px; min-width: 75px; }
+            .time-box span { font-size: 1.8rem; }
+        }
+
+        @media (max-width: 576px) {
+            /* Fix Header for Mobile */
+            header { padding: 12px 0; }
+            .navbar { flex-direction: column; gap: 10px; }
+            .logo-img { width: 40px; height: 40px; }
+            .logo-text { font-size: 1.2rem; }
+            .nav-right { width: 100%; justify-content: center; gap: 15px; }
+            .badge-gold { font-size: 0.7rem; padding: 4px 10px; }
+            
+            /* Fix Hero Input/Button for Mobile */
+            .hero { padding-top: 150px; padding-bottom: 40px; }
+            .hero h1 { font-size: 2rem; }
+            .signup-form { flex-direction: column; gap: 12px; width: 100%; padding: 0 10px; }
+            .signup-form input { width: 100%; text-align: center; }
+            .signup-form button { width: 100%; padding: 16px; }
+            .store-buttons { flex-direction: column; width: 100%; padding: 0 10px; }
+            .store-btn { width: 100%; justify-content: center; }
+
+            /* Fix Section Titles */
+            .section-title { font-size: 1.8rem; margin-bottom: 30px; }
+            
+            /* Fix Footer Links */
+            .footer-links { flex-direction: column; gap: 15px; }
+            
+            /* Fix Modals for Small Screens */
+            .modal-content {
+                width: 95%;
+                padding: 20px;
+                border-radius: 12px;
+            }
+            .modal-content h2 { font-size: 1.3rem; margin-bottom: 15px; padding-bottom: 10px; }
+            .modal-content p, .modal-content li { font-size: 0.9rem; }
+            .close-btn { top: 15px; right: 15px; width: 30px; height: 30px; font-size: 1.5rem; }
+            
+            /* Fix Countdown for mobile */
+            .timer-container { gap: 10px; }
+            .time-box { padding: 10px; min-width: 70px; }
+            .time-box span { font-size: 1.5rem; }
+            .time-box p { font-size: 0.7rem; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container navbar">
+            <a href="#" class="logo-container">
+                <img src="1000132866.jpg" alt="Street Eats Logo" class="logo-img">
+                <span class="logo-text">Street Eats</span>
+            </a>
+            <div class="nav-right">
+                <a href="https://instagram.com/streeteats.hld" target="_blank" class="ig-link">@streeteats.hld</a>
+                <span class="badge-gold">Coming Soon</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="launch-badge">🚀 Launching April 2026 in Haldwani</div>
+            <h1>Haldwani Ka Pehla<br>Street Food App</h1>
+            <p>Ghar Baithe Mangao — Momos, Burger, Chowmein & More. Straight from your favorite local stalls to your doorstep.</p>
+            
+            <form class="signup-form" onsubmit="alert('Thanks! We will notify you when we launch.'); return false;">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit">Get Notified on Launch</button>
+            </form>
+
+            <div class="store-buttons">
+                <a href="#" class="store-btn">
+                    <svg viewBox="0 0 384 512"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+                    <div>
+                        <small>Coming soon on</small>
+                        <strong>App Store</strong>
+                    </div>
+                </a>
+                <a href="#" class="store-btn">
+                    <svg viewBox="0 0 512 512"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>
+                    <div>
+                        <small>Coming soon on</small>
+                        <strong>Google Play</strong>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="countdown-section">
+        <div class="container">
+            <h2 class="countdown-title">Countdown to Launch</h2>
+            <div class="timer-container" id="timer">
+                <div class="time-box">
+                    <span id="days">00</span>
+                    <p>Days</p>
+                </div>
+                <div class="time-box">
+                    <span id="hours">00</span>
+                    <p>Hours</p>
+                </div>
+                <div class="time-box">
+                    <span id="minutes">00</span>
+                    <p>Minutes</p>
+                </div>
+                <div class="time-box">
+                    <span id="seconds">00</span>
+                    <p>Seconds</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Kyun Chunein Street Eats?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>30 Min Delivery</h3>
+                    <p>Garam aur fresh khana, direct stall se aapke ghar tak sirf 30 minute mein.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🕒</div>
+                    <h3>Open 5 PM to 9 PM</h3>
+                    <p>Shaam ki bhookh ka perfect ilaaj. Hum roz shaam aapki service mein hain.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📍</div>
+                    <h3>Best Local Stalls</h3>
+                    <p>Bhotiya Padav se lekar Tikonia tak, sabhi famous street stalls ek hi app par.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">Order Karna Bahut Aasan Hai</h2>
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>App download karo</h3>
+                    <p>April 2026 mein Play Store ya App Store se hamari app install karein.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Apna address daalo</h3>
+                    <p>Haldwani mein apni live location set karein aur aas-paas ka menu dekhein.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Food mangao ghar pe</h3>
+                    <p>Order place karein aur relax karein. Delivery partner raaste mein hoga!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">Street <span>Eats</span></div>
+            <div class="footer-links">
+                <a onclick="openModal('privacyModal')">Privacy Policy</a>
+                <a onclick="openModal('refundModal')">Refund Policy</a>
+                <a href="mailto:krnkumarbusiness@gmail.com">Contact Us</a>
+            </div>
+            <div class="footer-contact">
+                ✉️ krnkumarbusiness@gmail.com
+            </div>
+            <div class="footer-bottom">
+                <p>❤️ Made with love in Haldwani</p>
+                <p>&copy; 2026 Street Eats. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/918630140017" target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
+        <svg viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-23.1-115-65-157zM223.9 413.6c-33.1 0-65.5-8.9-94-25.7l-6.7-4-69.8 18.3L72 334.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+    </a>
+
+    <div id="privacyModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('privacyModal')">&times;</span>
+            <h2>Privacy Policy</h2>
+            <p>Welcome to Street Eats. Your privacy is critically important to us.</p>
+            <ul>
+                <li><strong>Data Collection:</strong> Our app collects only necessary information like your location (for delivery accuracy) and your phone number (for order updates).</li>
+                <li><strong>Data Protection:</strong> Your personal data is strictly not sold to any third parties. It is securely stored and solely used for service fulfillment.</li>
+                <li><strong>Service Area:</strong> Currently, our food delivery service is strictly based in Haldwani, Uttarakhand.</li>
+            </ul>
+            <p>For any privacy-related queries, email us at: <br><a style="color: var(--primary); text-decoration: none;" href="mailto:krnkumarbusiness@gmail.com">krnkumarbusiness@gmail.com</a></p>
+        </div>
+    </div>
+
+    <div id="refundModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('refundModal')">&times;</span>
+            <h2>Refund Policy</h2>
+            <p>At Street Eats, we strive for 100% satisfaction with every street food order.</p>
+            <ul>
+                <li><strong>Wrong Order:</strong> If you receive an incorrect order, you are eligible for a full refund or a free replacement.</li>
+                <li><strong>Late Delivery:</strong> If your order arrives significantly later than the promised 30 minutes, you will receive a partial refund or discount coupon for your next order.</li>
+                <li><strong>Claim Window:</strong> All refund or replacement requests must be made by contacting support within 30 minutes of delivery time.</li>
+            </ul>
+            <p>Contact us at <br><a style="color: var(--primary); text-decoration: none;" href="mailto:krnkumarbusiness@gmail.com">krnkumarbusiness@gmail.com</a> to initiate a claim.</p>
+        </div>
+    </div>
+
+    <script>
+        // Set the date we're counting down to (April 15, 2026)
+        const countDownDate = new Date("Apr 15, 2026 00:00:00").getTime();
+
+        // Update the count down every 1 second
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countDownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerHTML = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerHTML = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerHTML = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerHTML = seconds < 10 ? "0" + seconds : seconds;
+
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("timer").innerHTML = "<h3 style='color: var(--primary);'>We have launched! Download the app now.</h3>";
+            }
+        }, 1000);
+
+        // Modal Functions for Mobile Optimization
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            modal.style.display = "flex";
+            // Small delay to allow display:flex to apply before adding opacity class
+            setTimeout(() => {
+                modal.classList.add("show");
+            }, 10);
+            document.body.style.overflow = "hidden"; // Prevent background scrolling
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.remove("show");
+            // Wait for fade-out animation to finish before hiding
+            setTimeout(() => {
+                modal.style.display = "none";
+            }, 300);
+            document.body.style.overflow = "auto"; // Restore background scrolling
+        }
+
+        // Close modal when clicking outside the content box
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove("show");
+                setTimeout(() => {
+                    event.target.style.display = "none";
+                }, 300);
+                document.body.style.overflow = "auto";
+            }
+        }
+    </script>
+</body>
+</html>
